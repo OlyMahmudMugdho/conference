@@ -43,7 +43,11 @@ const ConferenceList = () => {
     }
     return (
         <div>
-            {posts && <ConferenceItem posts={posts} />}
+            {posts && posts.map(
+                (item) => {
+                    return (<ConferenceItem key={item.id} item={item} />)
+                }
+            )}
         </div>
     )
 }
