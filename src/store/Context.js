@@ -1,47 +1,48 @@
 import { createContext, useState } from "react";
 
-const FavouriteContext =  createContext({
-    favourites : [],
-    totalFavourites : 0,
-    addFavourite : (conferenceName) => {},
-    removeFavourite : (conferenceId) => {},
-    isFavourite : (conferenceId) => {}
+const FavouriteContext = createContext({
+    favourites: [],
+    totalFavourites: 0,
+    addFavourite: (conferenceName) => { },
+    removeFavourite: (conferenceId) => { },
+    isFavourite: (conferenceId) => { }
 })
 
-export function FavouriteContextProvider (props) {
+export function FavouriteContextProvider(props) {
     const [favourites, setFavourites] = useState([]);
 
-    const addFavouriteHandler = (conferenceName) => {
+    function addFavouriteHandler(conferenceName) {
         setFavourites(
-            (prevConference) => {
+            prevConference => {
                 return prevConference.concat(conferenceName);
             }
-        )
+        );
     }
 
-    const removeFavouriteHandler = (conferenceId) => {
+    function removeFavouriteHandler(conferenceId) {
         setFavourites(
-            (prevConference) => {
+            prevConference => {
                 return prevConference.filter(
                     (conf) => {
-                        return (conf.id !== conferenceId)
+                        return (conferenceId !== conf.id)
                     }
                 )
             }
         )
     }
 
-    const isFavouriteHandler = (conferenceId) => {
+    function isFavouriteHandler(conferenceId) {
         return favourites.some(
-            (conference) => conference.id === conferenceId
+            conference => conference.id === conferenceId
         )
     }
 
     const favouriteContextObj = {
-        favourites : favourites,
-        addFavourite : addFavouriteHandler,
-        removeFavourite : removeFavouriteHandler,
-        isFavourite : isFavouriteHandler
+        favourites: favourites,
+        totalFavourites : favourites.length,
+        addFavourite: addFavouriteHandler,
+        removeFavourite: removeFavouriteHandler,
+        isFavourite: isFavouriteHandler
     }
 
     return (

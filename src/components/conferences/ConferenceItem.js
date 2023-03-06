@@ -1,19 +1,19 @@
 import { useContext } from "react";
 import FavouriteContext from "../../store/Context";
 
-const ConferenceItem = ({ item }) => {
+const ConferenceItem = (props) => {
     const favouriteCtx = useContext(FavouriteContext);
-    const isFavItem = favouriteCtx.isFavourite(item.id);
-    
-    const toggleFavourite = () => {
+    const isFavItem = favouriteCtx.isFavourite(props.id);
+
+    function toggleFavourite () {
         if (isFavItem) {
-            favouriteCtx.removeFavourite(item.id)
+            favouriteCtx.removeFavourite(props.id)
         }
         else {
             favouriteCtx.addFavourite({
-                id: item.id,
-                title: item.title,
-                body: item.body
+                id: props.id,
+                title: props.title,
+                body: props.body
             });
         }
     }
@@ -21,15 +21,15 @@ const ConferenceItem = ({ item }) => {
     return (
         <div>
 
-            <div key={item.id}>
+            <div key={props.id}>
                 <h4 >
-                    {item.title}
+                    {props.title}
                 </h4>
                 <p>
-                    {item.body}
+                    {props.body}
                 </p>
-                <button onClick={toggleFavourite}>
-                    {(isFavItem) ? 'Remove from favourite' : 'To Favourite'}
+                <button onClick={ toggleFavourite }>
+                    {isFavItem ? 'Remove from favourite' : 'To Favourite'}
                 </button>
             </div>
         </div>
